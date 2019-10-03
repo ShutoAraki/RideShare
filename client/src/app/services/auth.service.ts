@@ -1,4 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { finalize, tap } from 'rxjs/operators';
 
 export class User {
   constructor(
@@ -11,6 +14,7 @@ export class User {
     public venmo_id?: string,
     public photo?: any
   ) {}
+
   static create(data: any): User {
     return new User(
       data.id,
@@ -23,11 +27,75 @@ export class User {
       data.photo
     )
   }
+
+  static getUser(): User {
+    const userData = localStorage.getItem('taxi.user');
+    if (userData) {
+      return this.create(JSON.parse(userData));
+    }
+    return null;
+  }
+
+  static isRider(): boolean {
+    const user = User.getUser();
+    if (user === null) {
+      return false;
+    }
+    return user.group === 'rider';
+  }
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  constructor() { }
+  constructor(private http: HttpClient) {}
+  signUp(
+    username: string,
+    firstName: string,
+    lastName: string,
+    password: string,
+    email: string,
+    group: string,
+    venmo_id: string,
+    photo: any
+  ): Observable<User> {
+    const url = '/api/sign_up/';
+    const formData = new FormData();
+    formData.append('username', username);
+    formData.append('password1', password);
+    formData.append('password2', password);
+    formData.append('first_name', firstName);
+    formData.append('last_name', lastName);
+    formData.append('group', group);
+    formData.append('email', email);
+    formData.append('venmo_id', venmo_id);
+    formData.append('photo', photo);
+    console.log("Trying to sign up!")
+    console.log(formData.get('username'))
+    console.log(formData.get('password1'))
+    console.log(formData.get('first_name'))
+    console.log(formData.get('last_name'))
+    console.log(formData.get('group'))
+    console.log(formData.get('email'))
+    console.log(formData.get('venmo_id'))
+    return this.http.request<User>('POST', url, {body: formData});
+  }
+
+  logIn(
+    username: string,
+    password: string
+  ): Observable<User> {
+    const url = '/api/log_in/';
+    return this.http.post<User>(url, {username, password}).pipe(
+      tap(user => localStorage.setItem('taxi.user', JSON.stringify(user)))
+    );
+  }
+
+  logOut(): Observable<any> {
+    const url = '/api/log_out/';
+    return this.http.post(url, null).pipe(
+      finalize(() => localStorage.removeItem('taxi.user'))
+    );
+  }
 }

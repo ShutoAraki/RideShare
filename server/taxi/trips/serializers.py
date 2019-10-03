@@ -45,8 +45,8 @@ class UserSerializer(serializers.ModelSerializer):
         model = get_user_model()
         fields = (
             'id', 'username', 'password1', 'password2',
-            'first_name', 'last_name', 'email', 'venmo_id',
-            'avg_rating', 'latitude', 'longitude', 'group'
+            'first_name', 'last_name', 'group', 'email',
+            'venmo_id', 'photo'
         )
         read_only_fields = ('id',)
 
