@@ -1,7 +1,8 @@
 <div class="middle-center">
-  <h1 class="landing logo">Taxi</h1>
+  <h1 class="landing logo">RideShare</h1>
   <div *ngIf="getUser(); then thenBlock; else elseBlock;"></div>
   <ng-template #thenBlock>
+    <h3>Hello, {{user.username}}</h3>
     <a class="btn btn-primary" [routerLink]="isRider() ? '/rider' : '/driver'">Dashboard</a>
     <button class="btn btn-primary" (click)="logOut()">Log out</button>
   </ng-template>
