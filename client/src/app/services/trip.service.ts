@@ -41,14 +41,14 @@ export class Trip {
 })
 export class TripService {
 
-  webSocket: WebSocketSubject<any>; // new
-  messages: Observable<any>; // new
+  webSocket: WebSocketSubject<any>;
+  messages: Observable<any>;
 
   constructor(
     private http: HttpClient
   ) {}
 
-  connect(): void { // new
+  connect(): void {
     if (!this.webSocket || this.webSocket.closed) {
       this.webSocket = new WebSocketSubject('ws://localhost:8080/taxi/');
       this.messages = this.webSocket.pipe(share());
@@ -68,7 +68,7 @@ export class TripService {
     );
   }
 
-  createTrip(trip: Trip): void { // new
+  createTrip(trip: Trip): void {
     this.connect();
     const message: any = {
       type: 'create.trip',

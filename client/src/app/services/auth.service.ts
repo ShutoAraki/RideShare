@@ -62,8 +62,8 @@ export class AuthService {
     username: string,
     firstName: string,
     lastName: string,
-    password: string,
     email: string,
+    password: string,
     group: string,
     venmo_id: string,
     photo: any

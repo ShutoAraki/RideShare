@@ -5,7 +5,7 @@ from .models import Trip, User
 
 @admin.register(User)
 class UserAdmin(DefaultUserAdmin):
-    pass
+    list_display = ('username', 'group')
 
 @admin.register(Trip)
 class TripAdmin(admin.ModelAdmin):

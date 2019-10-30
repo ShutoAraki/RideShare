@@ -331,11 +331,11 @@ async def connect_and_update_trip(*, user, trip, status):
 
 
 async def auth_connect(user):
-    # Force authentication to get session ID
+    # Force authentication to get session ID.
     client = Client()
     client.force_login(user=user)
 
-    # Pass session ID in headers to authenticate
+    # Pass session ID in headers to authenticate.
     communicator = WebsocketCommunicator(
         application=application,
         path='/taxi/',

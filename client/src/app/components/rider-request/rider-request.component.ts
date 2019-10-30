@@ -38,7 +38,7 @@ export class RiderRequestComponent implements OnInit {
         console.log(this.lat)
         console.log(this.lng)
         this.markers = [
-          new Marker(this.lat, this.lng)
+          new Marker(this.lat, this.lng, "You Are Here!")
         ];
       });
     }
