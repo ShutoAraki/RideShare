@@ -23,7 +23,7 @@ class TaxiConsumer(AsyncJsonWebsocketConsumer):
             channel_groups = [] # A list of channel operations (add) of each trip
 
             # Add a driver to the 'drivers' group
-            user_group = await self._get_user_group(user)
+            user_group = await self._get_user_group(self.scope['user'])
             if user_group == 'driver':
                 channel_groups.append(self.channel_layer.group_add(
                     group='drivers',
@@ -34,7 +34,7 @@ class TaxiConsumer(AsyncJsonWebsocketConsumer):
             self.trips = set([
                 # Since trip_id is UUIDField type, you have to convert
                 # it to a str type object
-                str(trip_id) for trip_id in await self._get_trips(user)
+                str(trip_id) for trip_id in await self._get_trips(self.scope['user'])
             ])
             for trip in self.trips:
                 channel_groups.append(self.channel_layer.group_add(trip, self.channel_name))

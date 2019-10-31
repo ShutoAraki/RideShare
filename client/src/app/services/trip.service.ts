@@ -23,6 +23,7 @@ export class Trip {
   }
 
   static create(data: any): Trip {
+    console.log(data)
     return new Trip(
       data.id,
       data.created,

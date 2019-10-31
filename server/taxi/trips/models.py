@@ -37,9 +37,9 @@ class Trip(models.Model):
     updated = models.DateTimeField(auto_now=True)
     pick_up_address = models.CharField(max_length=255)
     drop_off_address = models.CharField(max_length=255)
-    group_size = models.IntegerField(default=1)
-    carpool = models.BooleanField(default=True)
-    estimated_pick_up_time = models.TimeField(null=True, blank=True)
+    # group_size = models.IntegerField(default=1)
+    # carpool = models.BooleanField(default=True)
+    # estimated_pick_up_time = models.TimeField(null=True, blank=True)
     status = models.CharField(
         max_length=20, choices=STATUSES, default=REQUESTED)
 

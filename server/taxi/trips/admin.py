@@ -12,15 +12,15 @@ class TripAdmin(admin.ModelAdmin):
     fields = (
         'id', 'pick_up_address', 'drop_off_address', 'status',
         'driver', 'rider', 'created', 'updated', 
-        'estimated_pick_up_time', 'group_size', 'carpool',
+        # 'estimated_pick_up_time', 'group_size', 'carpool',
     )
     list_display = (
         'id', 'pick_up_address', 'drop_off_address', 'status',
         'driver', 'rider', 'created', 'updated', 
-        'estimated_pick_up_time', 'group_size', 'carpool',
+        # 'estimated_pick_up_time', 'group_size', 'carpool',
     )
     list_filter = (
-        'status', 'carpool',
+        'status', #'carpool',
     )
     readonly_fields = (
         'id', 'created', 'updated',

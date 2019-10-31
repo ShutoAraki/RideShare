@@ -46,7 +46,7 @@ class TripView(viewsets.ReadOnlyModelViewSet):
             # Only show trips that are requested or 
             # the user him/herself is the driver
             return Trip.objects.filter(
-                Q(Trip.REQUESTED) | Q(driver=user)
+                Q(status=Trip.REQUESTED) | Q(driver=user)
             )
         if user.group == 'rider':
             return Trip.objects.filter(rider=user)
