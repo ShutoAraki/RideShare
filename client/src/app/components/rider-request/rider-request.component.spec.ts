@@ -4,9 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { AgmCoreModule } from '@agm/core'; // new
+import { AgmCoreModule } from '@agm/core';
+import { AgmDirectionModule } from 'agm-direction';
 
-import { GoogleMapsService } from '../../services/google-maps.service'; // new
+import { GoogleMapsService } from '../../services/google-maps.service';
 import { TripService } from '../../services/trip.service';
 import { TripFactory } from '../../testing/factories';
 import { RiderRequestComponent } from './rider-request.component';
@@ -25,10 +26,11 @@ describe('RiderRequestComponent', () => {
         FormsModule,
         HttpClientTestingModule,
         RouterTestingModule.withRoutes([]),
-        AgmCoreModule.forRoot({}) // new
+        AgmCoreModule.forRoot({}),
+        AgmDirectionModule
       ],
       declarations: [ RiderRequestComponent ],
-      providers: [ // new
+      providers: [
         { provide: GoogleMapsService, useClass: MockGoogleMapsService }
       ]
     });

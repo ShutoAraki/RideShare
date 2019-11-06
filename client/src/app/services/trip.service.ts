@@ -20,7 +20,8 @@ export class Trip {
     public rider?: any,
     public group_size?: any,
     public carpool?: any,
-    public estimated_pick_up_time?: any
+    public estimated_pick_up_time?: any,
+    public price?: any
   ) {
     this.otherUser = User.isRider() ? this.driver : this.rider; // new
   }
@@ -38,7 +39,8 @@ export class Trip {
       User.create(data.rider),
       data.group_size,
       data.carpool,
-      data.estimated_pick_up_time
+      data.estimated_pick_up_time,
+      data.price
     );
   }
 }

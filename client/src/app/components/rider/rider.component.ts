@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from '../../services/auth.service';
 
 @Component({
   selector: 'app-rider',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RiderComponent implements OnInit {
 
-  constructor() { }
+  constructor() {}
+  
+  getUser(): User {
+    return User.getUser();
+  }
 
   ngOnInit() {
   }

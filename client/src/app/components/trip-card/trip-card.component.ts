@@ -9,5 +9,10 @@ import { Trip } from '../../services/trip.service';
 export class TripCardComponent {
   @Input() title: string;
   @Input() trips: Trip[];
-  constructor() {}
+  constructor() {
+    // Driver feed suggestion
+    // this.trips.sort((trip1: Trip, trip2: Trip) => {
+    //   return trip1.price - trip2.price;
+    // });
+  }
 }

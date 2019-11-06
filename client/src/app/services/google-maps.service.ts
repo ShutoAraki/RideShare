@@ -17,12 +17,10 @@ export class GoogleMapsService {
       travelMode: 'DRIVING'
     };
     const directionsService = new google.maps.DirectionsService();
-    const directionsRenderer = new google.maps.DirectionsRenderer();
 
     return Observable.create(observer => {
       directionsService.route(request, (result, status) => {
         if (status === 'OK') {
-          directionsRenderer.setDirections(result);
           observer.next(result);
         } else {
           observer.error('Enter two valid addresses.');

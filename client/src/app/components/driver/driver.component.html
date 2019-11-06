@@ -2,5 +2,6 @@
   <a class="navbar-brand logo" [routerLink]="['/']">RideShare</a>
 </nav>
 <div class="container pt-3">
+<p>Hi, {{ getUser().first_name }}</p>
   <router-outlet></router-outlet>
 </div>

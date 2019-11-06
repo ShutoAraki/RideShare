@@ -12,9 +12,37 @@
       <div class="card-header">Request Trip</div>
       <div class="card-body">
         <form #requestForm="ngForm" novalidate (ngSubmit)="onSubmit()">
+        
+          <div class="form-group">
+            <label for="group_size">Group Size:</label>
+            <select
+              id="group_size"
+              class="form-control"
+              [(ngModel)]="trip.group_size"
+              name="group_size"
+              required
+            >
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="price">Price (as a group):</label>
+            <input
+              id="price"
+              class="form-control"
+              type="number"
+              min="0.0"
+              [(ngModel)]="trip.price"
+              name="price"
+              required
+            >
+          </div>
+        
           <div class="form-group">
             <label for="pickUpAddress">Pick up address:</label>
-            <!-- changed -->
             <input
               id="pickUpAddress"
               class="form-control"
@@ -27,7 +55,6 @@
           </div>
           <div class="form-group">
             <label for="dropOffAddress">Drop off address:</label>
-            <!-- changed -->
             <input
               id="dropOffAddress"
               class="form-control"
@@ -38,14 +65,13 @@
               required
             >
           </div>
-          <!-- new -->
           <button
             class="btn btn-primary btn-block mb-3"
             type="button"
             (click)="onUpdate()"
             [disabled]="!requestForm.form.valid"
-          >Update Map</button>
-          <label (blur)="onUpdate()">Estimated Time: <b>{{ trip.estimated_pick_up_time }}</b></label>
+          >Calculate Estimated Time</button>
+          <label>Estimated Time: <b>{{ trip.estimated_pick_up_time }}</b></label>
           <br/>
           <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
             <agm-marker

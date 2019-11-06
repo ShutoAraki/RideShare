@@ -8,7 +8,8 @@
         <div class="media-body">
           <h5 class="mt-0 mb-1">{{ trip.otherUser.first_name }}</h5>
           {{ trip.pick_up_address }} to {{ trip.drop_off_address }}<br>
-          {{ trip.status }}
+          Group Size: {{ trip.group_size }}<br>
+          Price: ${{ trip.price }}<br>
         </div>
       </li>
     </ul>

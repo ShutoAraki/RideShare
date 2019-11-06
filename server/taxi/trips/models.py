@@ -39,9 +39,12 @@ class Trip(models.Model):
     drop_off_address = models.CharField(max_length=255)
     group_size = models.IntegerField(default=1)
     carpool = models.BooleanField(default=True)
-    estimated_pick_up_time = models.TimeField(null=True, blank=True)
+    # estimated_pick_up_time = models.TimeField(null=True, blank=True)
+    estimated_pick_up_time = models.CharField(max_length=255, null=True, blank=True)
+    price = models.FloatField(default=0.0)
     status = models.CharField(
-        max_length=20, choices=STATUSES, default=REQUESTED)
+        max_length=20, choices=STATUSES, default=REQUESTED
+    )
 
     driver = models.ForeignKey(
         settings.AUTH_USER_MODEL,

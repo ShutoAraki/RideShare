@@ -57,28 +57,25 @@ export class RiderRequestComponent implements OnInit {
       !!this.trip.pick_up_address &&
       !!this.trip.drop_off_address
     ) {
-      this.googleMapsService.directions(
-        this.trip.pick_up_address,
-        this.trip.drop_off_address
-      ).subscribe((data: any) => {
-        const route: any = data.routes[0];
-        const leg: any = route.legs[0];
-        this.lat = leg.start_location.lat();
-        this.lng = leg.start_location.lng();
-        this.markers = [
-          {
-            lat: leg.start_location.lat(),
-            lng: leg.start_location.lng(),
-            label: 'Departure'
-          },
-          {
-            lat: leg.end_location.lat(),
-            lng: leg.end_location.lng(),
-            label: 'Destination'
-          }
-        ];
-      });
-
+      // this.googleMapsService.directions(
+      //   this.trip.pick_up_address,
+      //   this.trip.drop_off_address
+      // ).subscribe((data: any) => {
+      //   const route: any = data.routes[0];
+      //   const leg: any = route.legs[0];
+      //   this.lat = leg.start_location.lat();
+      //   this.lng = leg.start_location.lng();
+      //   this.markers = [
+      //     {
+      //       lat: leg.start_location.lat(),
+      //       lng: leg.start_location.lng()
+      //     },
+      //     {
+      //       lat: leg.end_location.lat(),
+      //       lng: leg.end_location.lng()
+      //     }
+      //   ];
+      // });
       this.googleMapsService.getTravelTime(
         this.trip.pick_up_address,
         this.trip.drop_off_address
