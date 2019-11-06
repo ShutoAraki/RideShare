@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrManager } from 'ng6-toastr-notifications';
 
 import { Subscription } from 'rxjs';
 
@@ -16,7 +17,8 @@ export class RiderDashboardComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private tripService: TripService
+    private tripService: TripService,
+    private toastr: ToastrManager
   ) {}
 
   get currentTrips(): Trip[] {
@@ -37,6 +39,7 @@ export class RiderDashboardComponent implements OnInit, OnDestroy {
     this.messages = this.tripService.messages.subscribe((message: any) => {
       const trip: Trip = Trip.create(message.data);
       this.updateTrips(trip);
+      this.updateToast(trip);
     });
   }
 
@@ -47,5 +50,15 @@ export class RiderDashboardComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.messages.unsubscribe();
+  }
+
+  updateToast(trip: Trip): void {
+    if (trip.status === 'STARTED') {
+      this.toastr.infoToastr(`Driver ${trip.driver.username} is coming to pick you up.`);
+    } else if (trip.status === 'IN_PROGRESS') {
+      this.toastr.infoToastr(`Driver ${trip.driver.username} is headed to your destination.`);
+    } else if (trip.status === 'COMPLETED') {
+      this.toastr.infoToastr(`Driver ${trip.driver.username} has dropped you off.`);
+    }
   }
 }

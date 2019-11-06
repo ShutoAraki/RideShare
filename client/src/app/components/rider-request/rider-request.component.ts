@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { User } from '../../services/auth.service';
 import { Trip, TripService } from '../../services/trip.service';
+import { GoogleMapsService } from '../../services/google-maps.service';
 
 class Marker {
   constructor(
@@ -25,6 +26,7 @@ export class RiderRequestComponent implements OnInit {
   markers: Marker[];
 
   constructor(
+    private googleMapsService: GoogleMapsService,
     private router: Router,
     private tripService: TripService
   ) {}
@@ -48,5 +50,39 @@ export class RiderRequestComponent implements OnInit {
     this.trip.rider = User.getUser();
     this.tripService.createTrip(this.trip);
     this.router.navigateByUrl('/rider');
+  }
+
+  onUpdate(): void {
+    if (
+      !!this.trip.pick_up_address &&
+      !!this.trip.drop_off_address
+    ) {
+      this.googleMapsService.directions(
+        this.trip.pick_up_address,
+        this.trip.drop_off_address
+      ).subscribe((data: any) => {
+        const route: any = data.routes[0];
+        const leg: any = route.legs[0];
+        this.lat = leg.start_location.lat();
+        this.lng = leg.start_location.lng();
+        this.markers = [
+          {
+            lat: leg.start_location.lat(),
+            lng: leg.start_location.lng(),
+            label: 'A'
+          },
+          {
+            lat: leg.end_location.lat(),
+            lng: leg.end_location.lng(),
+            label: 'B'
+          }
+        ];
+      });
+
+      this.googleMapsService.getTravelTime(
+        this.trip.pick_up_address,
+        this.trip.drop_off_address
+      )
+    }
   }
 }

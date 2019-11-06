@@ -14,10 +14,12 @@
         <form #requestForm="ngForm" novalidate (ngSubmit)="onSubmit()">
           <div class="form-group">
             <label for="pickUpAddress">Pick up address:</label>
+            <!-- changed -->
             <input
               id="pickUpAddress"
               class="form-control"
               type="text"
+              (blur)="onUpdate()"
               [(ngModel)]="trip.pick_up_address"
               name="pickUpAddress"
               required
@@ -25,16 +27,26 @@
           </div>
           <div class="form-group">
             <label for="dropOffAddress">Drop off address:</label>
+            <!-- changed -->
             <input
               id="dropOffAddress"
               class="form-control"
               type="text"
+              (blur)="onUpdate()"
               [(ngModel)]="trip.drop_off_address"
               name="dropOffAddress"
               required
             >
           </div>
-          
+          <!-- new -->
+          <button
+            class="btn btn-primary btn-block mb-3"
+            type="button"
+            (click)="onUpdate()"
+            [disabled]="!requestForm.form.valid"
+          >Update Map</button>
+          <!-- <label>Estimated Time: {{ getTravelTime(trip.pick_up_address, trip.drop_off_address) }}</label> -->
+          <br/>
           <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
             <agm-marker
                 *ngFor="let marker of markers"
@@ -44,6 +56,7 @@
             >
             </agm-marker>
           </agm-map>
+          <br/>
           <button
             class="btn btn-primary btn-block"
             type="submit"

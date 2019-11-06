@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ng6-toastr-notifications';
 
 import { AuthService } from './services/auth.service';
 import { IsRider } from './services/is-rider.service';
@@ -22,6 +24,7 @@ import { TripCardComponent } from './components/trip-card/trip-card.component';
 import { DriverComponent } from './components/driver/driver.component';
 import { DriverDashboardComponent } from './components/driver-dashboard/driver-dashboard.component';
 import { DriverDetailComponent } from './components/driver-detail/driver-detail.component';
+import { GoogleMapsService } from './services/google-maps.service';
 
 import { environment } from '../environments/environment';
 import { AgmCoreModule } from '@agm/core';
@@ -43,6 +46,8 @@ import { AgmCoreModule } from '@agm/core';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
@@ -92,7 +97,15 @@ import { AgmCoreModule } from '@agm/core';
       apiKey: environment.GOOGLE_API_KEY
     })
   ],
-  providers: [ AuthService, IsDriver, IsRider, TripService, TripListResolver, TripDetailResolver ],
+  providers: [ 
+    AuthService,
+    GoogleMapsService,
+    IsDriver,
+    IsRider,
+    TripService,
+    TripListResolver,
+    TripDetailResolver
+  ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

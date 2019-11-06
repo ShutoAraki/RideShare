@@ -4,10 +4,11 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { Observable, of } from 'rxjs';
 
-import { TripService } from '../../services/trip.service'; // new
+import { TripService } from '../../services/trip.service';
 import { TripFactory } from '../../testing/factories';
 import { DriverDashboardComponent } from './driver-dashboard.component';
 import { TripCardComponent } from '../../components/trip-card/trip-card.component';
+import { ToastrModule } from 'ng6-toastr-notifications';
 
 describe('DriverDashboardComponent', () => {
   let component: DriverDashboardComponent;
@@ -30,7 +31,8 @@ describe('DriverDashboardComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule.withRoutes([])
+        RouterTestingModule.withRoutes([]),
+        ToastrModule.forRoot()
       ],
       declarations: [
         DriverDashboardComponent,

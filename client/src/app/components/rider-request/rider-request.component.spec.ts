@@ -1,11 +1,14 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing'; // new
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router'; // new
+import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { TripService } from '../../services/trip.service'; // new
-import { TripFactory } from '../../testing/factories'; // new
+import { AgmCoreModule } from '@agm/core'; // new
+
+import { GoogleMapsService } from '../../services/google-maps.service'; // new
+import { TripService } from '../../services/trip.service';
+import { TripFactory } from '../../testing/factories';
 import { RiderRequestComponent } from './rider-request.component';
 
 describe('RiderRequestComponent', () => {
@@ -14,14 +17,20 @@ describe('RiderRequestComponent', () => {
   let tripService: TripService;
   let router: Router;
 
+  class MockGoogleMapsService {} // new
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
         FormsModule,
         HttpClientTestingModule,
-        RouterTestingModule.withRoutes([])
+        RouterTestingModule.withRoutes([]),
+        AgmCoreModule.forRoot({}) // new
       ],
-      declarations: [ RiderRequestComponent ]
+      declarations: [ RiderRequestComponent ],
+      providers: [ // new
+        { provide: GoogleMapsService, useClass: MockGoogleMapsService }
+      ]
     });
     fixture = TestBed.createComponent(RiderRequestComponent);
     component = fixture.componentInstance;
@@ -33,7 +42,7 @@ describe('RiderRequestComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should handle form submit', () => { // new
+  it('should handle form submit', () => {
     const spyCreateTrip = spyOn(tripService, 'createTrip');
     const spyNavigateByUrl = spyOn(router, 'navigateByUrl');
     component.trip = TripFactory.create();
