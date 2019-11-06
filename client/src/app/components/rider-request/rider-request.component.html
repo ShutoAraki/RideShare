@@ -45,7 +45,7 @@
             (click)="onUpdate()"
             [disabled]="!requestForm.form.valid"
           >Update Map</button>
-          <!-- <label>Estimated Time: {{ getTravelTime(trip.pick_up_address, trip.drop_off_address) }}</label> -->
+          <label (blur)="onUpdate()">Estimated Time: <b>{{ trip.estimated_pick_up_time }}</b></label>
           <br/>
           <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
             <agm-marker
@@ -55,6 +55,8 @@
                 [label]="marker.label"
             >
             </agm-marker>
+            <agm-direction [origin]="trip.pick_up_address" [destination]="trip.drop_off_address">
+            </agm-direction>
           </agm-map>
           <br/>
           <button

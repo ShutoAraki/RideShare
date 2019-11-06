@@ -69,12 +69,12 @@ export class RiderRequestComponent implements OnInit {
           {
             lat: leg.start_location.lat(),
             lng: leg.start_location.lng(),
-            label: 'A'
+            label: 'Departure'
           },
           {
             lat: leg.end_location.lat(),
             lng: leg.end_location.lng(),
-            label: 'B'
+            label: 'Destination'
           }
         ];
       });
@@ -82,7 +82,9 @@ export class RiderRequestComponent implements OnInit {
       this.googleMapsService.getTravelTime(
         this.trip.pick_up_address,
         this.trip.drop_off_address
-      )
+      ).subscribe((data: any) => {
+        this.trip.estimated_pick_up_time = data.rows[0].elements[0].duration.text
+      });
     }
   }
 }

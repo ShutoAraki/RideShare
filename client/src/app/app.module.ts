@@ -28,6 +28,7 @@ import { GoogleMapsService } from './services/google-maps.service';
 
 import { environment } from '../environments/environment';
 import { AgmCoreModule } from '@agm/core';
+import { AgmDirectionModule } from 'agm-direction';
 
 @NgModule({
   declarations: [
@@ -95,7 +96,8 @@ import { AgmCoreModule } from '@agm/core';
     ], { useHash: true }),
     AgmCoreModule.forRoot({
       apiKey: environment.GOOGLE_API_KEY
-    })
+    }),
+    AgmDirectionModule,
   ],
   providers: [ 
     AuthService,

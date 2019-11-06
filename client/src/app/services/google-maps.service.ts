@@ -17,9 +17,12 @@ export class GoogleMapsService {
       travelMode: 'DRIVING'
     };
     const directionsService = new google.maps.DirectionsService();
+    const directionsRenderer = new google.maps.DirectionsRenderer();
+
     return Observable.create(observer => {
       directionsService.route(request, (result, status) => {
         if (status === 'OK') {
+          directionsRenderer.setDirections(result);
           observer.next(result);
         } else {
           observer.error('Enter two valid addresses.');
@@ -29,14 +32,22 @@ export class GoogleMapsService {
     });
   }
 
-  getTravelTime(pickUpAddress: string, dropOffAddress: string): string {
-    return new google.maps.DistanceMatrixService().getDistanceMatrix(
-      {'origins': [pickUpAddress],
-       'destinations': [dropOffAddress],
-       travelMode: 'DRIVING'
-      }, (results: any) => {
-        console.log('Estimated travel time -- ', results.rows[0].elements[0].duration.text)
-      }
-    );
+  getTravelTime(pickUpAddress: string, dropOffAddress: string): Observable<any> {
+    const request: any = {
+      'origins': [pickUpAddress],
+      'destinations': [dropOffAddress],
+      travelMode: 'DRIVING'
+    };
+    const distmatService = new google.maps.DistanceMatrixService();
+    return Observable.create(observer => {
+      distmatService.getDistanceMatrix(request, (result, status) => {
+        if (status == 'OK') {
+          observer.next(result);
+        } else {
+          observer.error('Enter two valid addresses');
+        }
+        observer.complete();
+      });
+    });
   }
 }

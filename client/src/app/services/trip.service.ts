@@ -17,7 +17,10 @@ export class Trip {
     public drop_off_address?: string,
     public status?: string,
     public driver?: any,
-    public rider?: any
+    public rider?: any,
+    public group_size?: any,
+    public carpool?: any,
+    public estimated_pick_up_time?: any
   ) {
     this.otherUser = User.isRider() ? this.driver : this.rider; // new
   }
@@ -32,7 +35,10 @@ export class Trip {
       data.drop_off_address,
       data.status,
       data.driver ? User.create(data.driver) : null,
-      User.create(data.rider)
+      User.create(data.rider),
+      data.group_size,
+      data.carpool,
+      data.estimated_pick_up_time
     );
   }
 }
