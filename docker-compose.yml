@@ -1,12 +1,14 @@
-version: '3.7'
+version: '3.0'
 
 services:
 
   taxi-redis:
+    image: 067483804727.dkr.ecr.us-east-2.amazonaws.com/rideshare-redis
     container_name: taxi-redis
     image: redis:5.0.3-alpine
 
   taxi-server:
+    image: 067483804727.dkr.ecr.us-east-2.amazonaws.com/rideshare-server
     build:
       context: ./server
     volumes:
@@ -22,6 +24,7 @@ services:
       - 8001:8000
 
   taxi-client:
+    image: 067483804727.dkr.ecr.us-east-2.amazonaws.com/rideshare-client
     build:
       context: ./client
     command: ng serve --host 0.0.0.0
@@ -34,6 +37,7 @@ services:
       - 4201:4200
 
   nginx:
+    image: 067483804727.dkr.ecr.us-east-2.amazonaws.com/rideshare-web
     build:
       context: ./nginx
     container_name: taxi-nginx
