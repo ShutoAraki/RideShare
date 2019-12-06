@@ -79,14 +79,8 @@ export class AuthService {
     formData.append('email', email);
     formData.append('venmo_id', venmo_id);
     formData.append('photo', photo);
-    console.log("Trying to sign up!")
-    console.log(formData.get('username'))
-    console.log(formData.get('password1'))
-    console.log(formData.get('first_name'))
-    console.log(formData.get('last_name'))
-    console.log(formData.get('group'))
-    console.log(formData.get('email'))
-    console.log(formData.get('venmo_id'))
+    console.log("PICTURE!!!");
+    console.log(photo);
     return this.http.request<User>('POST', url, {body: formData});
   }
 
