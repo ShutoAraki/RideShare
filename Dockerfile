@@ -38,4 +38,4 @@ COPY nginx/dev.conf /etc/nginx/conf.d
 
 COPY --from=client /usr/src/app/dist/client /app 
 COPY ./media /media
-
+COPY ./static /app/static
