@@ -21,27 +21,27 @@ services:
     ports:
       - 8001:8000
 
-  taxi-client:
-    build:
-      context: ./client
-    command: ng serve --host 0.0.0.0
-    container_name: taxi-client
-    depends_on:
-      - taxi-server
-    environment:
-      - CHROME_BIN=chromium-browser
-    ports:
-      - 4201:4200
+  #taxi-client:
+  #  build:
+  #    context: ./client
+  #  command: ng serve --host 0.0.0.0
+  #  container_name: taxi-client
+  #  depends_on:
+  #    - taxi-server
+  #  environment:
+  #    - CHROME_BIN=chromium-browser
+  #  ports:
+  #    - 4201:4200
 
   nginx:
     build:
-      context: ./nginx
+      context: .
     container_name: taxi-nginx
     depends_on:
       - taxi-server
-      - taxi-client
+    #  - taxi-client
     ports:
-      - 8080:80
+      - 80:80
     restart: always
     volumes:
       - media:/usr/src/app/media

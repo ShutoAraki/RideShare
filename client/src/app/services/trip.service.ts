@@ -2,13 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
-import { WebSocketSubject } from 'rxjs/webSocket'; // new
-import { map, share } from 'rxjs/operators'; // changed
+import { WebSocketSubject } from 'rxjs/webSocket';
+import { map, share } from 'rxjs/operators';
 
 import { User } from './auth.service';
 
 export class Trip {
-  public otherUser: User; // new
+  public otherUser: User;
   constructor(
     public id?: string,
     public created?: string,
@@ -23,7 +23,7 @@ export class Trip {
     public estimated_pick_up_time?: any,
     public price?: any
   ) {
-    this.otherUser = User.isRider() ? this.driver : this.rider; // new
+    this.otherUser = User.isRider() ? this.driver : this.rider;
   }
 
   static create(data: any): Trip {
@@ -59,7 +59,7 @@ export class TripService {
 
   connect(): void {
     if (!this.webSocket || this.webSocket.closed) {
-      this.webSocket = new WebSocketSubject('ws://localhost:8080/taxi/');
+      this.webSocket = new WebSocketSubject('ws://localhost/taxi/');
       this.messages = this.webSocket.pipe(share());
       this.messages.subscribe(message => console.log(message));
     }
