@@ -79,8 +79,6 @@ export class AuthService {
     formData.append('email', email);
     formData.append('venmo_id', venmo_id);
     formData.append('photo', photo);
-    console.log("PICTURE!!!");
-    console.log(photo);
     return this.http.request<User>('POST', url, {body: formData});
   }
 
